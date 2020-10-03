@@ -27,3 +27,18 @@ const sortingFunctions = {
         return parseCSSValue(b.style.marginLeft) - parseCSSValue(a.style.marginLeft)
     }
 }
+
+
+function setStyles() {
+    const mainDiv = document.getElementById('map')
+    for (let elemnt of document.getElementsByClassName('spider')) mainDiv.removeChild(element)
+    for (let i = 0; i < MAP_HEIGHT; i += BLOCK_HEIGHT) {
+        for (let j = 0; j < MAP_WIDTH; j += BLOCK_WIDTH) {
+            const innerDiv = document.createElement('div')
+            innerDiv.className = 'spider'
+            innerDiv.style.marginTop = `${i}px`
+            innerDiv.style.marginLeft = `${j}px`
+            mainDiv.appendChild(innerDiv)
+        }
+    }
+}

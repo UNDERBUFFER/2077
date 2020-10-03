@@ -9,6 +9,7 @@ function newBlock() {
     const innerDiv = document.createElement('div')
     innerDiv.className = 'block'
     innerDiv.innerHTML += '<center><h1>2</h1></center>'
+    innerDiv.style.backgroundColor = VALUES_BY_COLORS['2']
 
     for (let i = 0; i < 100; i++) {
         innerDiv.style.marginLeft = `${getRandomInteger(0, ( MAP_WIDTH / BLOCK_WIDTH ) - 1) * BLOCK_WIDTH}px`
@@ -70,6 +71,7 @@ function clearBlockHistory(block) {
 function connectBlocks(someBlock, mainBlock) {
     clearBlockHistory( someBlock )
     insertHTML( mainBlock, Number(mainBlock.innerText) * 2 )
+    mainBlock.style.backgroundColor = VALUES_BY_COLORS[mainBlock.innerText]
 }
 
 
@@ -126,6 +128,7 @@ function moveBlocks(keyName) {
     }
 }
 
+setStyles()
 
 document.addEventListener('keydown', (event) => {
     moveBlocks(event.key)
