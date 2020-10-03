@@ -40,33 +40,34 @@ function checkList(innerDiv, marginLeft=null, marginTop=null) {
 function moveBlocks(keyName) {
     const sortedBlocks = [...BLOCKS].sort( sortingFunctions[keyName] )
     for (let block of sortedBlocks) {
+        const style = block.style
         switch (keyName) {
             case 'ArrowUp':
-                while ( block.style.marginTop != '0px' ) {
-                    let newValue = `${parseCSSValue(block.style.marginTop) - BLOCK_HEIGHT}px`
-                    if ( !checkList( null, block.style.marginLeft, newValue ) ) break
-                    block.style.marginTop = newValue
+                while ( style.marginTop != '0px' ) {
+                    let newValue = `${parseCSSValue(style.marginTop) - BLOCK_HEIGHT}px`
+                    if ( !checkList( null, style.marginLeft, newValue ) ) break
+                    style.marginTop = newValue
                 }
                 break
             case 'ArrowDown':
-                while ( block.style.marginTop != `${MAP_HEIGHT - BLOCK_HEIGHT}px` ) {
-                    let newValue = `${parseCSSValue(block.style.marginTop) + BLOCK_HEIGHT}px`
-                    if ( !checkList( null, block.style.marginLeft, newValue ) ) break
-                    block.style.marginTop = newValue
+                while ( style.marginTop != `${MAP_HEIGHT - BLOCK_HEIGHT}px` ) {
+                    let newValue = `${parseCSSValue(style.marginTop) + BLOCK_HEIGHT}px`
+                    if ( !checkList( null, style.marginLeft, newValue ) ) break
+                    style.marginTop = newValue
                 }
                 break
             case 'ArrowLeft':
-                while ( block.style.marginLeft != '0px' ) {
-                    let newValue = `${parseCSSValue(block.style.marginLeft) - BLOCK_WIDTH}px`
-                    if ( !checkList( null, newValue, block.style.marginTop ) ) break
-                    block.style.marginLeft = newValue
+                while ( style.marginLeft != '0px' ) {
+                    let newValue = `${parseCSSValue(style.marginLeft) - BLOCK_WIDTH}px`
+                    if ( !checkList( null, newValue, style.marginTop ) ) break
+                    style.marginLeft = newValue
                 }
                 break
             case 'ArrowRight':
-                while ( block.style.marginLeft != `${MAP_WIDTH - BLOCK_WIDTH}px` ) {
-                    let newValue = `${parseCSSValue(block.style.marginLeft) + BLOCK_WIDTH}px`
-                    if ( !checkList( null, newValue, block.style.marginTop ) ) break
-                    block.style.marginLeft = newValue
+                while ( style.marginLeft != `${MAP_WIDTH - BLOCK_WIDTH}px` ) {
+                    let newValue = `${parseCSSValue(style.marginLeft) + BLOCK_WIDTH}px`
+                    if ( !checkList( null, newValue, style.marginTop ) ) break
+                    style.marginLeft = newValue
                 }
                 break
         }        
