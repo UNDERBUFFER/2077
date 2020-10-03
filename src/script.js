@@ -15,7 +15,7 @@ function newBlock() {
         innerDiv.style.marginLeft = `${getRandomInteger(0, ( MAP_WIDTH / BLOCK_WIDTH ) - 1) * BLOCK_WIDTH}px`
         innerDiv.style.marginTop = `${getRandomInteger(0, ( MAP_HEIGHT / BLOCK_HEIGHT ) - 1) * BLOCK_HEIGHT}px`
 
-        if (checkList(innerDiv)) {
+        if ( findBlockByCoordinates(innerDiv) === false ) {
             BLOCKS.push(document.getElementById('map').appendChild(innerDiv))
             return true
         }
@@ -24,21 +24,6 @@ function newBlock() {
     console.log('endgame')
     return true
 
-}
-
-
-function checkList(innerDiv, marginLeft=null, marginTop=null) {
-    const passedBlock = {
-        marginLeft: marginLeft === null || marginTop === null ? innerDiv.style.marginLeft : marginLeft,
-        marginTop: marginLeft === null || marginTop === null ? innerDiv.style.marginTop: marginTop
-    }
-    for (let block of BLOCKS) {
-        if ( passedBlock.marginLeft == block.style.marginLeft &&
-            passedBlock.marginTop == block.style.marginTop ) {
-            return false
-        }
-    }
-    return true
 }
 
 
@@ -128,7 +113,9 @@ function moveBlocks(keyName) {
     }
 }
 
+
 setStyles()
+
 
 document.addEventListener('keydown', (event) => {
     moveBlocks(event.key)
