@@ -38,51 +38,39 @@ function checkList(innerDiv, marginLeft=null, marginTop=null) {
 }
 
 function moveBlocks(keyName) {
-    let sortedBlocks = []
+    const sortedBlocks = [...BLOCKS].sort( sortingFunctions[keyName] )
     switch (keyName) {
         case 'ArrowUp':
-            sortedBlocks = [...BLOCKS].sort( (a, b) => {
-                return Number(a.style.marginTop.slice(0, -2)) - Number(b.style.marginTop.slice(0, -2))
-            } )
             for (let block of sortedBlocks) {
                 while ( block.style.marginTop != '0px' ) {
-                    let newValue = `${Number(block.style.marginTop.slice(0, -2)) - BLOCK_HEIGHT}px`
+                    let newValue = `${parseCSSValue(block.style.marginTop) - BLOCK_HEIGHT}px`
                     if ( !checkList( null, block.style.marginLeft, newValue ) ) break
                     block.style.marginTop = newValue
                 }
             }
             break
         case 'ArrowDown':
-            sortedBlocks = [...BLOCKS].sort( (a, b) => {
-                return Number(b.style.marginTop.slice(0, -2)) - Number(a.style.marginTop.slice(0, -2))
-            } )
             for (let block of sortedBlocks) {
                 while ( block.style.marginTop != `${MAP_HEIGHT - BLOCK_HEIGHT}px` ) {
-                    let newValue = `${Number(block.style.marginTop.slice(0, -2)) + BLOCK_HEIGHT}px`
+                    let newValue = `${parseCSSValue(block.style.marginTop) + BLOCK_HEIGHT}px`
                     if ( !checkList( null, block.style.marginLeft, newValue ) ) break
                     block.style.marginTop = newValue
                 }
             }
             break
         case 'ArrowLeft':
-            sortedBlocks = [...BLOCKS].sort( (a, b) => {
-                return Number(a.style.marginLeft.slice(0, -2)) - Number(b.style.marginLeft.slice(0, -2))
-            } )
             for (let block of sortedBlocks) {
                 while ( block.style.marginLeft != '0px' ) {
-                    let newValue = `${Number(block.style.marginLeft.slice(0, -2)) - BLOCK_WIDTH}px`
+                    let newValue = `${parseCSSValue(block.style.marginLeft) - BLOCK_WIDTH}px`
                     if ( !checkList( null, newValue, block.style.marginTop ) ) break
                     block.style.marginLeft = newValue
                 }
             }
             break
         case 'ArrowRight':
-            sortedBlocks = [...BLOCKS].sort( (a, b) => {
-                return Number(b.style.marginLeft.slice(0, -2)) - Number(a.style.marginLeft.slice(0, -2))
-            } )
             for (let block of sortedBlocks) {
                 while ( block.style.marginLeft != `${MAP_WIDTH - BLOCK_WIDTH}px` ) {
-                    let newValue = `${Number(block.style.marginLeft.slice(0, -2)) + BLOCK_WIDTH}px`
+                    let newValue = `${parseCSSValue(block.style.marginLeft) + BLOCK_WIDTH}px`
                     if ( !checkList( null, newValue, block.style.marginTop ) ) break
                     block.style.marginLeft = newValue
                 }
